@@ -1,8 +1,10 @@
-These files are for the blog post http://rifty-business.blogspot.com/
+All files in the RiftGestures folder are for the tutorial in the blog post http://rifty-business.blogspot.com/
+
+conversation.cs is by Karen Bryla (karen@karenbryla.com). This script is public domain.
 
 RiftGestures.cs and MyMath.cs scripts are from:
 Katsuomi Kobayashi ([@KatsuomiK](https://twitter.com/KatsuomiK))
 http://framesynthesis.com
+Full project and license information at: https://github.com/KatsuomiK/RiftGesture
 
-conversation.cs is by Karen Bryla (karen@karenbryla.com)
 
