@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class conversation : MonoBehaviour {
 
-	public Transform questionholder;
+	public Transform questionHolder;
 	Text question;
 	CanvasGroup cg;
 	private  float startTime;
@@ -16,7 +16,7 @@ public class conversation : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		cg = GetComponent<CanvasGroup>();
-		question = questionholder.GetComponent<Text>();
+		question = questionHolder.GetComponent<Text>();
 		question.text = "Nod if you can read this.";
 		startTime = Time.time;
 	}
@@ -24,7 +24,7 @@ public class conversation : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// A line of diaog should be visible for a few seconds before an answer is accepted. 
+		// A line of dialog should be visible for at least a second before an answer is accepted. 
 		// Calculate the time the dialog has been visible.
 		currentTime = Time.time;
 		waitTime = currentTime - startTime;
@@ -48,8 +48,9 @@ public class conversation : MonoBehaviour {
 	public void TriggerYes(){
 
 		// If the TriggerYes message has been sent from RiftGesture, check to see if the dialog is visible
-		// and been visible for more than 2 seconds. Then update dialog.
-		if (isVisible && (waitTime > 2)){
+		// and been visible for more than 1 second. If so, update the dialog. (Yes, I know that using strings
+		// like this is a recipe for errors, but I wanted to keep this example simple to read.)
+		if (isVisible && (waitTime > 1)){
 			if (question.text == "Nod if you can read this."){
 				question.text = "Are you normally telepathic?";
 			}else if (question.text == "Are you normally telepathic?"){
@@ -69,7 +70,8 @@ public class conversation : MonoBehaviour {
 	public void TriggerNo(){
 
 		// If the TriggerNo message has been sent from RiftGesture, check to see if the dialog is visible
-		// and has been visible for more than 2 seconds. Then update dialog.
+		// and has been visible for more than 1 second. If so, update the dialog. (Yes, I know that using strings
+		// like this is a recipe for errors, but I wanted to keep this example simple to read.)
 
 		if (isVisible && (waitTime > 1)){
 			if (question.text == "Are you normally telepathic?"){
