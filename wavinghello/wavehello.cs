@@ -4,17 +4,16 @@ using Leap;
 
 public class wavehello : MonoBehaviour {
 
-	public HandController handController;
+	public HandController wavinghands;
 	Animator anim;
-	GameObject centerEyeAnchor;
 	GameObject speechbubble;
+	float raiseHandThreshHold = -0.03f;
 
 
 	// Use this for initialization
 	void Start () {
 
 		anim = GetComponent<Animator>();
-		centerEyeAnchor = GameObject.Find("CenterEyeAnchor");
 		speechbubble = GameObject.Find("speechbubble");
 
 	}
@@ -23,15 +22,18 @@ public class wavehello : MonoBehaviour {
 	void Update () {
 
 		// Find all the physic handsmodels in the scene.
-		HandModel[] userHands = handController.GetAllPhysicsHands();
+		HandModel[] userHands = wavinghands.GetAllPhysicsHands();
 
-		// For all hands found, compare the y position of the hand with the y position of the 
-		// centerEyeAnchor. If above, set the trigger to wave and display the speech bubble. 
+		// For all hands found, GetPalmPosition returns the postion of the hand relative to the
+		// HandController. The HandController is located at 0,0,0 relative to it's parent
+		// obect the CenterEyeAnchor. The CenterEyeAnchor object is located at the center 
+		// of the user's eyes. If the Y value of the hand is greater than 0 the hand is raised
+		// above the eyes. If the hand is above the raiseHandThreshHold, set the trigger to wave and display the speech bubble. 
 		if (userHands.Length > 0){
 
 			foreach (HandModel models in userHands){
 
-				if (models.GetPalmPosition().y >= centerEyeAnchor.transform.position.y - 0.03f){
+				if (models.GetPalmPosition().y >=  raiseHandThreshHold){
 						anim.SetTrigger("Wave");
 						changeMenuDisplay(speechbubble, 1);
 					} else {
