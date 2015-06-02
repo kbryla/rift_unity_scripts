@@ -4,7 +4,7 @@ using Leap;
 
 public class wavehello : MonoBehaviour {
 
-	public HandController wavinghands;
+	public HandController handController;
 	Animator anim;
 	GameObject centerEyeAnchor;
 	GameObject speechbubble;
@@ -23,10 +23,10 @@ public class wavehello : MonoBehaviour {
 	void Update () {
 
 		// Find all the physic handsmodels in the scene.
-		HandModel[] userHands = wavinghands.GetAllPhysicsHands();
+		HandModel[] userHands = handController.GetAllPhysicsHands();
 
 		// For all hands found, compare the y position of the hand with the y position of the 
-		// CenterEyeAnchor(userEyes). If above, set the trigger to wave and display the speech bubble. 
+		// centerEyeAnchor. If above, set the trigger to wave and display the speech bubble. 
 		if (userHands.Length > 0){
 
 			foreach (HandModel models in userHands){
