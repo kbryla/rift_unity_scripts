@@ -5,9 +5,8 @@ using Leap;
 public class wavehello : MonoBehaviour {
 
 	public HandController wavinghands;
-	public GameObject statuscube;
 	Animator anim;
-	GameObject userEyes;
+	GameObject centerEyeAnchor;
 	GameObject speechbubble;
 
 
@@ -15,7 +14,7 @@ public class wavehello : MonoBehaviour {
 	void Start () {
 
 		anim = GetComponent<Animator>();
-		userEyes = GameObject.Find("CenterEyeAnchor");
+		centerEyeAnchor = GameObject.Find("CenterEyeAnchor");
 		speechbubble = GameObject.Find("speechbubble");
 
 	}
@@ -23,34 +22,29 @@ public class wavehello : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		// Find all the physic handsmodels in the scene.
 		HandModel[] userHands = wavinghands.GetAllPhysicsHands();
 
+		// For all hands found, compare the y position of the hand with the y position of the 
+		// CenterEyeAnchor(userEyes). If above, set the trigger to wave and display the speech bubble. 
 		if (userHands.Length > 0){
 
 			foreach (HandModel models in userHands){
 
-				if (models.GetPalmPosition().y >= userEyes.transform.position.y - 0.03f){
+				if (models.GetPalmPosition().y >= centerEyeAnchor.transform.position.y - 0.03f){
 						anim.SetTrigger("Wave");
-						statuscube.GetComponent<Renderer>().material.color = Color.blue;
+						changeMenuDisplay(speechbubble, 1);
 					} else {
-						statuscube.GetComponent<Renderer>().material.color = Color.red;
 						anim.SetTrigger("Idle");
+						changeMenuDisplay(speechbubble, 0);
 				}
 			}
+
+		// If no hands found, set trigger to Idle and hide the speech bubble.
 		} else {
-			statuscube.GetComponent<Renderer>().material.color = Color.red;
 			anim.SetTrigger("Idle");
-		}
-
-
-		if (anim.GetCurrentAnimatorStateInfo(0).IsName("Idle")){
-
 			changeMenuDisplay(speechbubble, 0);
-		}else {
-
-			changeMenuDisplay(speechbubble, 1);
 		}
-	
 	}
 
 
