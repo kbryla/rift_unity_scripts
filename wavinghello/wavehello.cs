@@ -2,6 +2,10 @@
 using System.Collections;
 using Leap;
 
+// This script is for the waving hello project in the blog post: 
+// http://rifty-business.blogspot.com/2015/06/unity-leap-raising-your-hand-to-get.html
+// Copyright: Karen Bryla (karen@karenbryla.com)
+
 public class wavehello : MonoBehaviour {
 
 	public HandController wavinghands;
